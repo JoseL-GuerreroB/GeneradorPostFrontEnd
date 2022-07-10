@@ -1,23 +1,23 @@
-import logo from './logo.svg';
 import './App.css';
+import {HashRouter} from 'react-router-dom';
+import Cabecera from './components/Cabecera';
+import Rutas from './components/Rutas';
+import { useContext } from 'react';
+import { UserContext } from './contexts/UserContext';
+import Sesion from './components/Sesion'
+import CrudProvider from './contexts/CrudContext';
 
 function App() {
+  const {logeado} = useContext(UserContext);
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <HashRouter>
+        <CrudProvider>
+          <Sesion />
+          {logeado && <Cabecera />}
+          <Rutas />
+        </CrudProvider>
+      </HashRouter>
     </div>
   );
 }

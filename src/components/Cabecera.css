@@ -1,0 +1,17 @@
+.header-content{
+  position: fixed;
+  align-items: center;
+  justify-content: space-around;
+  width: 100%;
+  height: 70px;
+  z-index: 10;
+  border: 4px solid #000;
+  background-color: #334;
+}
+.header-content h3, .header-content .item{
+  color: #bbc;
+  text-decoration: none;
+}
+.header-content .item:hover{
+  color: #eef;
+}

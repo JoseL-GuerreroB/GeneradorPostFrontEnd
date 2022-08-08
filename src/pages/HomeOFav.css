@@ -1,0 +1,39 @@
+main {
+  width: 100%;
+  margin-top: 70px;
+  max-height: min-content;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+#handle-posts{
+  margin: 50px 0;
+  width: 100%;
+  text-align: center;
+}
+#handle-posts div{
+  display: flex;
+  justify-content: center;
+}
+#handle-posts div button{
+  margin: 0 5px;
+}
+#posts-grilla{
+  margin-top: 60px;
+  width: 96%;
+  padding: 30px 0;
+  background-color: #223;
+  display: grid;
+  grid-template-columns: repeat(auto-fill,340px);
+  grid-auto-rows: 280px;
+  justify-items: center;
+  align-items: center;
+  justify-content: center;
+  align-content: center;
+}
+.sin-post{
+  color: #fff;
+  grid-column: 1 /span auto;
+  text-align:center;
+}

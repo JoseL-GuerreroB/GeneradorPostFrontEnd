@@ -74,7 +74,7 @@ Dando click en "crear post" del menú de navegación.
 
 Dando click en el icono de editar.
 
-![editar post](https://github.com/JoseL-GuerreroB/GeneradorPostFrontEnd/blob/master/public/Creador-de-post/UPost.png)
+![editar post](https://github.com/JoseL-GuerreroB/GeneradorPostFrontEnd/blob/master/public/Creador-de-post/Upost.png)
 
 **Advertencia antes de eliminar el Post.**
 

@@ -13,3 +13,16 @@
   width: 600px;
   padding: 20px;
 }
+.fav{
+  color: #000;
+}
+.fav2{
+  color: #fff;
+}
+small, .errorM {
+  border: 5px solid #b00;
+  padding: 0 5px;
+  background-color: #fdd;
+  color: #600 !important;
+  font-weight: 700;
+}

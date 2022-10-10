@@ -1,45 +1,55 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
+import { useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import MsgError from '../components/MsgError';
 import { UserContext } from '../contexts/UserContext';
-import axios from 'axios';
 import "./LogYReg.css";
-import { useState } from 'react';
 
 export default function Login() {
   const navegar = useNavigate();
-  const { setLogeado } = useContext(UserContext);
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const handleLogin = async(e) => {
+  const { setLogeado, login, errorUser } = useContext(UserContext);
+  const [mostrarErrores, setMostrarErrores] = useState(false);
+  let email = useRef();
+  let password = useRef();
+  
+  const handleLogin = async (e) => {
     e.preventDefault();
-    try {
-      const res = await axios.post("http://localhost:5000/auth/login", {
-        email,
-        password
-      });
-      console.log(res.data);
-      setLogeado(true);
-      navegar("/");
-    } catch (error) {
-      console.log(error);
+    let datos = {
+      email: email.current.value,
+      password: password.current.value
     }
+    const result = await login(datos);
+      if (result === false) {
+        navegar("/iniciar");
+        setMostrarErrores(true);
+        setTimeout(() => setMostrarErrores(false), 3000);
+      } else {
+        setLogeado(true);
+        navegar("/");
+      }
   }
   return (
     <div className='area-form'>
       <h2>Inicia sesión</h2>
       <form className='formulario' onSubmit={handleLogin}>
+        {mostrarErrores && <div style={{
+          position: "fixed",
+          right: 0,
+          top: 0
+        }}>
+          {errorUser !== null && errorUser.errores && errorUser.errores.map((campo, index) => <MsgError key={index} tit="" msg={campo.msg} />)}
+          {errorUser !== null && errorUser.error && <MsgError tit={errorUser.error} msg={errorUser.mensaje} />}
+        </div>}
         <div className="form-group">
           <label htmlFor="Cor" >Correo:</label>
-          <input type="email" id='Cor' className='form-control' aria-describedby="msgCor" placeholder="Escribe tu correo" value={email} onChange={e => {setEmail(e.target.value)}}/>
-          <small id="msgCor" className="form-text text-muted">123</small>
+          <input type="email" id='Cor' className='form-control' placeholder="Escribe tu correo" ref={email}/>
         </div>
         <div className="form-group">
           <label htmlFor="Pas" >Contraseña:</label>
-          <input type="password" id='Pas' className='form-control' aria-describedby="msgPas" placeholder="Escribe tu contraseña" value={password} onChange={e => setPassword(e.target.value)} />
-          <small id="msgPas" className="form-text text-muted">123</small>
+          <input type="password" id='Pas' className='form-control' placeholder="Escribe tu contraseña" ref={password} />
         </div>
         <div className="form-group">
-          <input type="submit" value="Iniciar Sesión" className='btn btn-primary' />
+          <input type="submit" value="Iniciar Sesión" className='btn btn-primary mt-3' />
         </div>
       </form>
       <h4>¿Aún no tienes una cuenta?</h4>

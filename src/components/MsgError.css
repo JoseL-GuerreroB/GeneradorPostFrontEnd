@@ -1,0 +1,15 @@
+.msgError {
+  z-index: 100;
+  width: 450px;
+  padding: 20px 30px;
+  margin: 10px 0;
+  height: 100px;
+  border: 4px solid #fff;
+  color: #fff;
+  background-color: #b00;
+  border-top-left-radius: 10%;
+  text-align: center;
+}
+.msgError p {
+  font-size: 18px;
+}

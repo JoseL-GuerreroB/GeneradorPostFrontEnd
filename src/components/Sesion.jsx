@@ -1,21 +1,44 @@
 import React,{ useContext } from 'react';
-import { CrudContext } from '../contexts/CrudContext';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { UserContext } from '../contexts/UserContext';
 import { BtnEditar, BtnEliminar, BtnLogout } from './BtnHandle';
 import "./Sesion.css";
 
 export default function Sesion() {
-  const {desplegado}=useContext(UserContext);
-  const {datos} = useContext(CrudContext);
+  const { desplegado, datosUser, logeado, loading, setDesplegado, elimUser }=useContext(UserContext);
+  const [adv, setAdv] = useState(false);
+  const navegar = useNavigate();
+
+  const advDel = () => setAdv(true);
+
+  const deleteCuenta = () => {
+    setDesplegado(false);
+    elimUser();
+    setAdv(false);
+    navegar("/registro");
+  }
   return (
     <div id="sesion-contenedor" className={desplegado?"activo":"inactivo"}>
-      <img src={datos.Usuarios[0].Url_foto.url} alt="por defecto" />
-      <h2>{datos.Usuarios[0].nombre}</h2>
-      <h3>{datos.Usuarios[0].correo}</h3>
-      <div>
+      { logeado && !loading ?
+        <>
+          <img src={datosUser.user.image.url} alt="por defecto" />
+          <h2>{datosUser.user.name}</h2>
+          <h3>{datosUser.user.email}</h3>
+        </> :
+        <h2>Cargando...</h2>
+      }
+      {adv && 
+        <div id='rec-elim'>
+          <h4> ¿Estas seguro de eliminar tu cuenta? </h4>
+          <button className='ms-2 me-2 btn btn-warning' onClick={()=> setAdv(false)}>Cancelar</button>
+          <button className='ms-2 me-2 btn btn-danger' onClick={deleteCuenta}>Eliminar</button>
+        </div>
+      }
+      <div id="rec-btn">
         <BtnEditar />
         <BtnLogout />
-        <BtnEliminar />
+        <BtnEliminar elim={advDel}/>
       </div>
       
     </div>

@@ -5,18 +5,18 @@ import Rutas from './components/Rutas';
 import { useContext } from 'react';
 import { UserContext } from './contexts/UserContext';
 import Sesion from './components/Sesion'
-import CrudProvider from './contexts/CrudContext';
+import ValidProvider from './contexts/ValidContext';
 
 function App() {
   const {logeado} = useContext(UserContext);
   return (
     <div className="App">
       <HashRouter>
-        <CrudProvider>
+        <ValidProvider>
           <Sesion />
           {logeado && <Cabecera />}
           <Rutas />
-        </CrudProvider>
+        </ValidProvider>
       </HashRouter>
     </div>
   );

@@ -5,33 +5,20 @@ import { UserContext } from '../contexts/UserContext';
 
 export function BtnLogout() {
   const navegar = useNavigate();
-  const { setDesplegado } = useContext(UserContext);
+  const { setDesplegado, logout } = useContext(UserContext);
   const handleClick = () => {
     setDesplegado(false);
-    setTimeout(()=>{
-      setLogeado(false);
-      navegar("/iniciar");
-    },300)
+    logout();
+    navegar("/iniciar");
   }
-  const {setLogeado} = useContext(UserContext);
   return (
     <button className='btn btn-secondary ms-2 me-2' onClick={handleClick}>Cerrar Sesión</button>
   )
 }
 
-export function BtnEliminar() {
-  const { setLogeado } = useContext(UserContext);
-  const navegar = useNavigate();
-  const { setDesplegado } = useContext(UserContext);
-  const handleClick = () => {
-    setDesplegado(false);
-    setTimeout(() => {
-      setLogeado(false);
-      navegar("/registro");
-    }, 300)
-  }
+export function BtnEliminar({elim}) {
   return (
-    <button className='btn btn-danger ms-2 me-2' onClick={handleClick}>Eliminar perfil</button>
+    <button className='btn btn-danger ms-2 me-2' onClick={elim}>Eliminar perfil</button>
   )
 }
 
@@ -42,7 +29,7 @@ export function BtnEditar() {
     setDesplegado(false);
     setTimeout(() => {
       navegar("/editarusuario");
-    }, 300)
+    },300)
   }
   return (
     <button className='btn btn-warning ms-2 me-2' onClick={handleClick}>Editar Sesión</button>

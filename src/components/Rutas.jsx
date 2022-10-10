@@ -11,14 +11,14 @@ import { UserContext } from '../contexts/UserContext';
 import TerminosYCondiciones from '../pages/TerminosYCondiciones';
 
 export default function Rutas() {
-  const {logeado} = useContext(UserContext);
+  const {logeado, dataToEdit} = useContext(UserContext);
   return (
     <Routes>
       <Route path='/' element={logeado ? <Home /> : <Navigate to="iniciar" />} />
       <Route path={!logeado ? 'registro' : 'editarusuario'} element={<Register />} />
       <Route path='iniciar' element={!logeado ? <Login /> : <Navigate to="/" />} />
       <Route path='terminosyc' element={!logeado ? <TerminosYCondiciones /> : <Navigate to="/" />} />
-      <Route path='nuevo' element={logeado ? <CreateNew /> : <Navigate to="/iniciar" />} />
+      <Route path={!dataToEdit ? "nuevo" : "editar"} element={logeado ? <CreateNew /> : <Navigate to="/iniciar" />} />
       <Route path='favoritos' element={logeado ? <Favoritos /> : <Navigate to="/iniciar" />} />
       <Route path='*' element={<NotFoundPage />} />
     </Routes>
